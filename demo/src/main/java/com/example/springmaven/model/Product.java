@@ -1,8 +1,9 @@
 package com.example.springmaven.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Product {

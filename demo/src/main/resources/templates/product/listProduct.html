@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style>
-        button {
-            margin: 5px;
-        }
-    </style>
 </head>
 <body>
+<ul style="padding: 10px" class="nav nav-pills">
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home"><b>HOME</b></a></li>
+
+    <li class="nav-item"> <a class="nav-link" href="/list">LIST PRODUCT</a></li>
+
+    <li class="nav-item"><a class="nav-link" href="/person/list2">LIST PERSON</a></li>
+
+    <li class="nav-item"><h5 class="nav-link" th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h5></li>
+
+    <li class="nav-item">
+        <form th:action="@{/logout}" method="post">
+            <button class="nav-link active" ype="submit" >Login/out</button>
+        </form>
+    </li>
+</ul>
+
 <h3>PRODUCT LIST</h3>
 <p>
     <a th:href="@{/create}">

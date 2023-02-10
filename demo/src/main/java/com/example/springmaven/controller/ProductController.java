@@ -1,7 +1,13 @@
 package com.example.springmaven.controller;
 
+import com.example.springmaven.dto.PersonDto;
+import com.example.springmaven.model.MyUser;
+import com.example.springmaven.model.Person;
 import com.example.springmaven.model.Product;
+import com.example.springmaven.model.QMyUser;
+import com.example.springmaven.service.IPersonService;
 import com.example.springmaven.service.IProductService;
+import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,9 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.validation.Valid;
 
 @Controller
+
 public class ProductController {
 
     @Autowired
@@ -30,13 +40,13 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("productList", productList);
         model.addAttribute("name", name);
-        return "listProduct";
+        return "/product/listProduct";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("product", new Product());
-        return "createProduct";
+        return "/product/createProduct";
     }
 
     @PostMapping("/save")
@@ -52,7 +62,7 @@ public class ProductController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "editProduct";
+        return "/product/editProduct";
     }
 
     @PostMapping("/update")
@@ -74,7 +84,9 @@ public class ProductController {
     @GetMapping("/view/{id}")
     public String view(@PathVariable long id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "/viewProduct";
+        return "/product/viewProduct";
     }
+
+
 
 }

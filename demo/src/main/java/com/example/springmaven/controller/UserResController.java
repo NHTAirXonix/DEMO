@@ -10,11 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class UserController {
+public class UserResController {
     @Autowired
     private IUserService iuserService;
 
     @GetMapping("/listUser")
+    @ResponseBody
     public ResponseEntity<Page<User>> showListUser(@RequestParam(defaultValue = "0") int page){
         Page<User> users = iuserService.findListUser(PageRequest.of(page, 5));
         if (users == null) {
