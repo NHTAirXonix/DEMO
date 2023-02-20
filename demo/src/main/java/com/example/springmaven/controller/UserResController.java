@@ -1,6 +1,6 @@
 package com.example.springmaven.controller;
 
-import com.example.springmaven.model.User;
+import com.example.springmaven.dto.UserDTO;
 import com.example.springmaven.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,66 +16,41 @@ public class UserResController {
 
     @GetMapping("/listUser")
     @ResponseBody
-    public ResponseEntity<Page<User>> showListUser(@RequestParam(defaultValue = "0") int page){
-        Page<User> users = iuserService.findListUser(PageRequest.of(page, 5));
-        if (users == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else {
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }
+    public ResponseEntity<Page<UserDTO>> showListUser(@RequestParam(defaultValue = "0") int page) {
+        return iuserService.findListUser(PageRequest.of(page, 5));
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user){
-        iuserService.addUser(user);
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
+        iuserService.addUser(userDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/findUserId/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable Long id){
-        User user = iuserService.findByUser(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
+    public ResponseEntity<UserDTO> findUserById(@PathVariable Long id){
+        return iuserService.findByUser(id);
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id){
-        User user = iuserService.findByUser(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            iuserService.removeUser(id);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id){
+        return iuserService.removeUser(id);
     }
 
     @PatchMapping("/editUser/{id}")
-    public ResponseEntity<User> editUser(@PathVariable Long id, @RequestBody User user) {
-        User userEdit = iuserService.findByUser(id);
-        if (userEdit == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            userEdit.setNameUser(user.getNameUser());
-            userEdit.setAddressUser(user.getAddressUser());
-            userEdit.setPhoneUser(user.getPhoneUser());
-            userEdit.setBirthdayUser(user.getBirthdayUser());
-            iuserService.updateUser(userEdit);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
+    public ResponseEntity<UserDTO> editUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        return iuserService.updateUser(id, userDTO);
     }
 
     @GetMapping("/searchUser")
-    public ResponseEntity<Page<User>> searchUser(@RequestParam String name, @RequestParam String address,
-                                            @RequestParam String phone, @RequestParam(defaultValue = "0") int page) {
-        Page<User> users = iuserService.searchUser(name, address, phone, PageRequest.of(page, 5));
-        if (users == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }
+    public ResponseEntity<Page<UserDTO>> searchUser(@RequestParam String name, @RequestParam String address,
+            @RequestParam String phone, @RequestParam(defaultValue = "0") int page) {
+        return iuserService.searchUser(name, address, phone, PageRequest.of(page, 5));
     }
 
+
+    // REST API
+    // MAP STRUCT
+    // SWAGGER
+    // STATUS DELETE
+    // HARD DELETE
 }

@@ -1,22 +1,21 @@
 package com.example.springmaven.service;
 
-import com.example.springmaven.model.User;
+import com.example.springmaven.dto.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface IUserService {
 
-    Page<User> findListUser(Pageable pageable);
+    ResponseEntity<Page<UserDTO>> findListUser(Pageable pageable);
 
-    void addUser(User user);
+    void addUser(UserDTO userDTO);
 
-    void removeUser(Long id);
+    ResponseEntity<UserDTO> removeUser(Long id);
 
-    void updateUser(User user);
+    ResponseEntity<UserDTO> updateUser(Long id,UserDTO userDTO);
 
-    User findByUser(Long id);
+    ResponseEntity<UserDTO> findByUser(Long id);
 
-    Page<User> searchUser(String name,String address, String phone, Pageable pageable);
+    ResponseEntity<Page<UserDTO>> searchUser(String name,String address, String phone, Pageable pageable);
 }

@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +29,7 @@ public class PersonService implements IPersonService {
                 .stream()
                 .map(p -> new PersonDto( p.getId(), p.getName(),p.getPosition()))
                 .collect(Collectors.toList());
-        return new PageImpl<PersonDto>(personDTOs, personPage.getPageable(), personPage.getTotalElements());
+        return new PageImpl<>(personDTOs, personPage.getPageable(), personPage.getTotalElements());
     }
 
     @Override
@@ -42,10 +41,14 @@ public class PersonService implements IPersonService {
 
     @Override
     public PersonDto findById(Integer id) {
-        Person person = personRepository.findById(id).get();
-        PersonDto personDtoReturn = new PersonDto();
-        BeanUtils.copyProperties(person,personDtoReturn);
-        return personDtoReturn;
+        Optional<Person> personOptional = personRepository.findById(id);
+        Person person;
+                PersonDto personDto = new PersonDto();
+        if (personOptional.isPresent()) {
+            person = personOptional.get();
+            BeanUtils.copyProperties(person,personDto);
+        }
+        return personDto;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.example.springmaven.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-//import javax.validation.constraints.NotBlank;
 
+
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Product {
@@ -32,16 +32,21 @@ public class Product {
     @Column(name = "product_status")
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Person person;
+
     public Product() {
     }
 
-    public Product(int id, String name, String price, String detail, String manufacturer, String status) {
+    public Product(int id, String name, String price, String detail, String manufacturer, String status, Person person) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.detail = detail;
         this.manufacturer = manufacturer;
         this.status = status;
+        this.person = person;
     }
 
     public int getId() {
@@ -90,5 +95,13 @@ public class Product {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

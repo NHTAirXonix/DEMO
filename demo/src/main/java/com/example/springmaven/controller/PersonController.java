@@ -4,6 +4,7 @@ import com.example.springmaven.dto.PersonDto;
 import com.example.springmaven.model.Person;
 import com.example.springmaven.model.Product;
 import com.example.springmaven.service.IPersonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("person")

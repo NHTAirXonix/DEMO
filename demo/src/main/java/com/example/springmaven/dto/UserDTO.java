@@ -1,32 +1,31 @@
-package com.example.springmaven.model;
+package com.example.springmaven.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.Date;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
+
     private Long id;
     private String nameUser;
     private String addressUser;
     private String phoneUser;
     private Date birthdayUser;
     private String statusObject = "on";
+
+    public UserDTO() {
+    }
+
+    public UserDTO(Long id, String nameUser, String addressUser, String phoneUser, Date birthdayUser, String statusObject) {
+        this.id = id;
+        this.nameUser = nameUser;
+        this.addressUser = addressUser;
+        this.phoneUser = phoneUser;
+        this.birthdayUser = birthdayUser;
+        this.statusObject = statusObject;
+    }
 
     public Long getId() {
         return id;
